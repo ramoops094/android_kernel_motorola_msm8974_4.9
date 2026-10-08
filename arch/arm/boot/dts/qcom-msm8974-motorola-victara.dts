@@ -546,12 +546,13 @@
 	};
 };
 
+&{/soc/spmi@fc4cf000} {
+	status = "disabled";
+};
+
 /* sdcc1, emmc */
 &{/soc/sdhci@f9824900} {
-	status = "ok";
-	non-removable;
-	vmmc-supply = <&pm8941_l20>;
-	vqmmc-supply = <&pm8941_s3>;
+	status = "disabled";
 };
 
 &{/soc/restart@fc4ab000} {
