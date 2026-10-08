@@ -4,8 +4,6 @@
  * touch, keys and emmc settings from the moto 3.4 stock dts.
  */
 
-/dts-v1/;
-
 #include "qcom-msm8974.dtsi"
 #include "qcom-pm8841.dtsi"
 #include "qcom-pm8941.dtsi"
