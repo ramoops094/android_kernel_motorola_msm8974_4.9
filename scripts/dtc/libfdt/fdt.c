@@ -50,6 +50,7 @@
  */
 #include "libfdt_env.h"
 
+#include <linux/kernel.h>
 #include <fdt.h>
 #include <libfdt.h>
 
