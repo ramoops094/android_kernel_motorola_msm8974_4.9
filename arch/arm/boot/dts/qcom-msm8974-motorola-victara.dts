@@ -553,3 +553,7 @@
 	vmmc-supply = <&pm8941_l20>;
 	vqmmc-supply = <&pm8941_s3>;
 };
+
+&{/soc/restart@fc4ab000} {
+	reg-names = "pshold-base";
+};
