@@ -76,6 +76,7 @@ def run_gcc():
     try:
         proc = subprocess.Popen(args, stderr=subprocess.PIPE)
         for line in proc.stderr:
+            line = line.decode('utf-8', 'replace')
             print(line, end='', file=sys.stderr)
             interpret_warning(line)
 
