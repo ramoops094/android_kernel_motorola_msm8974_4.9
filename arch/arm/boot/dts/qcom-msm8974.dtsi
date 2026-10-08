@@ -220,7 +220,7 @@
 	};
 
 	clocks {
-		xo_board {
+		xo: xo_board {
 			compatible = "fixed-clock";
 			#clock-cells = <0>;
 			clock-frequency = <19200000>;

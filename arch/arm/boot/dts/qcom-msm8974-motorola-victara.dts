@@ -515,7 +515,7 @@
 		interrupt-names = "core_irq", "async_irq";
 		clocks = <&gcc GCC_USB_HS_SYSTEM_CLK>,
 			 <&gcc GCC_USB_HS_AHB_CLK>,
-			 <&xo_board>;
+			 <&xo>;
 		clock-names = "core_clk", "iface_clk", "xo";
 		HSUSB_1p8-supply = <&pm8941_l6>;
 		HSUSB_3p3-supply = <&pm8941_l24>;
