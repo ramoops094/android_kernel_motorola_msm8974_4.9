@@ -145,7 +145,7 @@ static pgprot_t __get_dma_pgprot(unsigned long attrs, pgprot_t prot,
 	return prot;
 }
 
-static bool is_dma_coherent(struct device *dev, unsigned long attrs,
+static bool __maybe_unused is_dma_coherent(struct device *dev, unsigned long attrs,
 			    bool is_coherent)
 {
 	if (attrs & DMA_ATTR_FORCE_COHERENT)
