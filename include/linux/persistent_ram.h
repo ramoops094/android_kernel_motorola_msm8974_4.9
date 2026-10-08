@@ -66,18 +66,18 @@ struct persistent_ram_zone {
 	bool early;
 };
 
-int persistent_ram_early_init(struct persistent_ram *ram);
+int ramcon_early_init(struct persistent_ram *ram);
 
-struct persistent_ram_zone *persistent_ram_init_ringbuffer(struct device *dev,
+struct persistent_ram_zone *ramcon_init_ringbuffer(struct device *dev,
 		bool ecc);
 
-int persistent_ram_write(struct persistent_ram_zone *prz, const void *s,
+int ramcon_write(struct persistent_ram_zone *prz, const void *s,
 	unsigned int count);
 
-size_t persistent_ram_old_size(struct persistent_ram_zone *prz);
-void *persistent_ram_old(struct persistent_ram_zone *prz);
-void persistent_ram_free_old(struct persistent_ram_zone *prz);
-ssize_t persistent_ram_ecc_string(struct persistent_ram_zone *prz,
+size_t ramcon_old_size(struct persistent_ram_zone *prz);
+void *ramcon_old(struct persistent_ram_zone *prz);
+void ramcon_free_old(struct persistent_ram_zone *prz);
+ssize_t ramcon_ecc_string(struct persistent_ram_zone *prz,
 	char *str, size_t len);
 
 #endif

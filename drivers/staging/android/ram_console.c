@@ -34,7 +34,7 @@ static void
 ram_console_write(struct console *console, const char *s, unsigned int count)
 {
 	struct persistent_ram_zone *prz = console->data;
-	persistent_ram_write(prz, s, count);
+	ramcon_write(prz, s, count);
 }
 
 static struct console ram_console = {
@@ -83,11 +83,11 @@ static int ram_console_probe(struct platform_device *pdev)
 		ram->descs = desc;
 		ram->num_descs = 1;
 
-		persistent_ram_early_init(ram);
+		ramcon_early_init(ram);
 	}
 #endif
 
-	prz = persistent_ram_init_ringbuffer(&pdev->dev, true);
+	prz = ramcon_init_ringbuffer(&pdev->dev, true);
 	if (IS_ERR(prz))
 		return PTR_ERR(prz);
 
@@ -138,8 +138,8 @@ static ssize_t ram_console_read_old(struct file *file, char __user *buf,
 	loff_t pos = *offset;
 	ssize_t count;
 	struct persistent_ram_zone *prz = ram_console_zone;
-	size_t old_log_size = persistent_ram_old_size(prz);
-	const char *old_log = persistent_ram_old(prz);
+	size_t old_log_size = ramcon_old_size(prz);
+	const char *old_log = ramcon_old(prz);
 	char *str;
 	int ret;
 
@@ -153,12 +153,12 @@ static ssize_t ram_console_read_old(struct file *file, char __user *buf,
 
 	/* ECC correction notice */
 	pos -= old_log_size;
-	count = persistent_ram_ecc_string(prz, NULL, 0);
+	count = ramcon_ecc_string(prz, NULL, 0);
 	if (pos < count) {
 		str = kmalloc(count, GFP_KERNEL);
 		if (!str)
 			return -ENOMEM;
-		persistent_ram_ecc_string(prz, str, count + 1);
+		ramcon_ecc_string(prz, str, count + 1);
 		count = min(len, (size_t)(count - pos));
 		ret = copy_to_user(buf, str + pos, count);
 		kfree(str);
@@ -197,19 +197,19 @@ static int __init ram_console_late_init(void)
 	if (!prz)
 		return 0;
 
-	if (persistent_ram_old_size(prz) == 0)
+	if (ramcon_old_size(prz) == 0)
 		return 0;
 
 	entry = proc_create("last_kmsg", S_IRUGO, NULL,
 		&ram_console_file_ops);
 	if (!entry) {
 		printk(KERN_ERR "ram_console: failed to create proc entry\n");
-		persistent_ram_free_old(prz);
+		ramcon_free_old(prz);
 		return 0;
 	}
 
-	proc_set_size(entry, persistent_ram_old_size(prz) +
-		persistent_ram_ecc_string(prz, NULL, 0) +
+	proc_set_size(entry, ramcon_old_size(prz) +
+		ramcon_ecc_string(prz, NULL, 0) +
 		bootinfo_size);
 
 	return 0;

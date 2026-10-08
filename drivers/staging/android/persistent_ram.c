@@ -227,7 +227,7 @@ static int persistent_ram_init_ecc(struct persistent_ram_zone *prz,
 	return 0;
 }
 
-ssize_t persistent_ram_ecc_string(struct persistent_ram_zone *prz,
+ssize_t ramcon_ecc_string(struct persistent_ram_zone *prz,
 	char *str, size_t len)
 {
 	ssize_t ret;
@@ -272,7 +272,7 @@ persistent_ram_save_old(struct persistent_ram_zone *prz)
 	memcpy(prz->old_log + size - start, &buffer->data[0], start);
 }
 
-int notrace persistent_ram_write(struct persistent_ram_zone *prz,
+int notrace ramcon_write(struct persistent_ram_zone *prz,
 	const void *s, unsigned int count)
 {
 	int rem;
@@ -302,17 +302,17 @@ int notrace persistent_ram_write(struct persistent_ram_zone *prz,
 	return count;
 }
 
-size_t persistent_ram_old_size(struct persistent_ram_zone *prz)
+size_t ramcon_old_size(struct persistent_ram_zone *prz)
 {
 	return prz->old_log_size;
 }
 
-void *persistent_ram_old(struct persistent_ram_zone *prz)
+void *ramcon_old(struct persistent_ram_zone *prz)
 {
 	return prz->old_log;
 }
 
-void persistent_ram_free_old(struct persistent_ram_zone *prz)
+void ramcon_free_old(struct persistent_ram_zone *prz)
 {
 	kfree(prz->old_log);
 	prz->old_log = NULL;
@@ -435,12 +435,12 @@ err:
 }
 
 struct persistent_ram_zone *
-persistent_ram_init_ringbuffer(struct device *dev, bool ecc)
+ramcon_init_ringbuffer(struct device *dev, bool ecc)
 {
 	return __persistent_ram_init(dev, ecc);
 }
 
-int __init persistent_ram_early_init(struct persistent_ram *ram)
+int __init ramcon_early_init(struct persistent_ram *ram)
 {
 	int ret;
 
