@@ -62,6 +62,7 @@ static int ram_console_probe(struct platform_device *pdev)
 		struct persistent_ram *ram;
 		struct persistent_ram_descriptor *desc;
 		struct device_node *np = pdev->dev.of_node;
+		void __iomem *mark;
 
 		ram = devm_kzalloc(&pdev->dev, sizeof(*ram), GFP_KERNEL);
 		if (!ram) {
@@ -83,13 +84,41 @@ static int ram_console_probe(struct platform_device *pdev)
 		ram->descs = desc;
 		ram->num_descs = 1;
 
+		mark = ioremap_nocache(ram->start, 8);
+		if (mark) {
+			writel(0xA1A1A1A1, mark);
+			iounmap(mark);
+		}
+
 		ramcon_early_init(ram);
+
+		mark = ioremap_nocache(ram->start, 8);
+		if (mark) {
+			writel(0xB2B2B2B2, mark);
+			iounmap(mark);
+		}
 	}
 #endif
 
 	prz = ramcon_init_ringbuffer(&pdev->dev, true);
 	if (IS_ERR(prz))
 		return PTR_ERR(prz);
+
+#ifdef CONFIG_OF
+	if (pdev->dev.of_node) {
+		u32 start;
+
+		if (!of_property_read_u32(pdev->dev.of_node,
+				"android,ram-buffer-start", &start)) {
+			void __iomem *mark = ioremap_nocache(start, 8);
+
+			if (mark) {
+				writel(0xC3C3C3C3, mark);
+				iounmap(mark);
+			}
+		}
+	}
+#endif
 
 
 	if (pdata) {
