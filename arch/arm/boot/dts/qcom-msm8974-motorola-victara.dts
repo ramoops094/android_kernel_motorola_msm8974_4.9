@@ -10,6 +10,11 @@
 #include <dt-bindings/gpio/gpio.h>
 #include <dt-bindings/clock/qcom,mmcc-msm8974.h>
 
+/* keep the ram console region out of the page allocator from the
+ * start, like the stock moto reserve table does. a late memblock
+ * reserve races with allocations and corrupts live memory. */
+/memreserve/ 0x3eae0000 0x20000;
+
 / {
 	model = "Motorola MSM 8974PRO-AC VICTARA";
 	compatible = "motorola,victara", "qcom,msm8974";
