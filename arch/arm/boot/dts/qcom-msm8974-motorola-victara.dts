@@ -30,8 +30,8 @@
 		ramoops@3eae0000 {
 			compatible = "ramoops";
 			reg = <0x3eae0000 0x20000>;
-			record-size = <0x20000>;
-			console-size = <0x20000>;
+			record-size = <0x8000>;
+			console-size = <0x10000>;
 		};
 	};
 
@@ -243,4 +243,10 @@
 	serial@f991d000 {
 		status = "ok";
 	};
+};
+
+/* sdcc1, emmc */
+&{/soc/sdhci@f9824900} {
+	status = "ok";
+	non-removable;
 };
