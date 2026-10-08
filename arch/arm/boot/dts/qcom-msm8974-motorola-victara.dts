@@ -345,7 +345,6 @@
 	};
 
 	mdss_mdp: qcom,mdss_mdp@fd900000 {
-		status = "disabled";
 		compatible = "qcom,mdss_mdp";
 		reg = <0xfd900000 0x22100>,
 			<0xfd924000 0x1000>;
@@ -493,7 +492,6 @@
 	};
 
 	mdss_dsi0: qcom,mdss_dsi@fd922800 {
-		status = "disabled";
 		compatible = "qcom,mdss-dsi-ctrl";
 		label = "MDSS DSI CTRL->0";
 		cell-index = <0>;
