@@ -320,7 +320,7 @@
 	};
 
 	i2c@f9927000 {
-		status = "ok";
+		status = "disabled";
 		compatible = "qcom,i2c-qup-v2.1.1";
 		reg = <0xf9927000 0x1000>;
 		interrupts = <0 99 0>;
@@ -345,6 +345,7 @@
 	};
 
 	mdss_mdp: qcom,mdss_mdp@fd900000 {
+		status = "disabled";
 		compatible = "qcom,mdss_mdp";
 		reg = <0xfd900000 0x22100>,
 			<0xfd924000 0x1000>;
@@ -492,6 +493,7 @@
 	};
 
 	mdss_dsi0: qcom,mdss_dsi@fd922800 {
+		status = "disabled";
 		compatible = "qcom,mdss-dsi-ctrl";
 		label = "MDSS DSI CTRL->0";
 		cell-index = <0>;
@@ -517,6 +519,7 @@
 	};
 
 	usb_otg: usb@f9a55000 {
+		status = "disabled";
 		compatible = "qcom,hsusb-otg";
 		reg = <0xf9a55000 0x400>;
 		interrupts = <0 134 0>, <0 140 0>;
@@ -538,6 +541,7 @@
 	};
 
 	usb_dev: usb@f9a55000 {
+		status = "disabled";
 		compatible = "qcom,ci-hdrc";
 		reg = <0xf9a55000 0x400>;
 		dr_mode = "peripheral";
@@ -548,7 +552,7 @@
 
 /* sdcc1, emmc */
 &{/soc/sdhci@f9824900} {
-	status = "ok";
+	status = "disabled";
 	non-removable;
 	vmmc-supply = <&pm8941_l20>;
 	vqmmc-supply = <&pm8941_s3>;
