@@ -204,7 +204,7 @@ int msm_ion_do_cache_offset_op(
 	return -ENODEV;
 }
 
-static bool is_buffer_hlos_assigned(struct ion_buffer *buffer)
+static bool __maybe_unused is_buffer_hlos_assigned(struct ion_buffer *buffer)
 {
 	return true;
 }

@@ -244,6 +244,7 @@ struct mdss_scaler_block {
 };
 
 struct mdss_data_type;
+struct dma_buf;
 
 struct mdss_smmu_ops {
 	int (*smmu_attach)(struct mdss_data_type *mdata);
