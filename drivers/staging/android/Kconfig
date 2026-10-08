@@ -14,6 +14,18 @@ config ASHMEM
 	  It is, in theory, a good memory allocator for low-memory devices,
 	  because it can discard shared memory units when under memory pressure.
 
+config ANDROID_RAM_CONSOLE
+	bool "Enable the Android RAM console"
+	default n
+	select REED_SOLOMON
+	select REED_SOLOMON_ENC8
+	select REED_SOLOMON_DEC8
+	---help---
+	  Provides a console that preserves the kernel log across reboots
+	  in a reserved RAM region, readable via /proc/last_kmsg. The
+	  region is described by an android,ram-console device tree node
+	  or board-file platform data.
+
 config ANDROID_LOW_MEMORY_KILLER
 	bool "Android Low Memory Killer"
 	---help---
