@@ -40,7 +40,8 @@ $(obj)/vdso.so.dbg: $(obj)/vdso.so.raw $(obj)/vdsomunge FORCE
 	$(call if_changed,vdsomunge)
 
 # Strip rule for the .so file
-$(obj)/%.so: OBJCOPYFLAGS := -S
+# note: old binutils cannot strip this vdso, keep debug info
+$(obj)/%.so: OBJCOPYFLAGS :=
 $(obj)/%.so: $(obj)/%.so.dbg FORCE
 	$(call if_changed,objcopy)
 
