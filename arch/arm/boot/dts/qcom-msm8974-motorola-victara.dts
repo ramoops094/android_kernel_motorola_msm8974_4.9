@@ -526,9 +526,13 @@
 		vdda-supply = <&pm8941_l2>;
 		clocks = <&mmcc MDSS_AHB_CLK>,
 			 <&mmcc MDSS_AXI_CLK>,
-			 <&mmcc MDSS_MDP_CLK>;
+			 <&mmcc MDSS_MDP_CLK>,
+			 <&mmcc MDSS_BYTE0_CLK>,
+			 <&mmcc MDSS_PCLK0_CLK>,
+			 <&mmcc MDSS_ESC0_CLK>;
 		clock-names = "iface_clk", "bus_clk",
-			      "mdp_core_clk";
+			      "mdp_core_clk", "byte_clk",
+			      "pixel_clk", "core_clk";
 		qcom,mdss-mdp = <&mdss_mdp>;
 		qcom,dsi-pref-prim-pan = <&mot_smd_1080p_cmd_v1>;
 		qcom,mdss-fb-map = <&mdss_fb0>;
@@ -570,12 +574,12 @@
 };
 
 &{/soc/spmi@fc4cf000} {
-	status = "disabled";
+	status = "ok";
 };
 
 /* sdcc1, emmc */
 &{/soc/sdhci@f9824900} {
-	status = "disabled";
+	status = "ok";
 };
 
 &{/soc/restart@fc4ab000} {
