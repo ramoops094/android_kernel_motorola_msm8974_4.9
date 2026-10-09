@@ -170,6 +170,17 @@ not_angel:
 		safe_svcmode_maskall r0
 		msr	spsr_cxsf, r9		@ Save the CPU boot mode in
 						@ SPSR
+#ifdef CONFIG_MSM8974_BRINGUP_MARKER
+		/* victara bringup: prove decompressor entry. MMU is off
+		 * here so this stores straight to phys 0x3eae0000. */
+		movw	r0, #0x0000
+		movt	r0, #0x3eae
+		movw	r1, #0xec01
+		movt	r1, #0xdeca
+		str	r1, [r0]
+		mcr	p15, 0, r0, c7, c10, 1	@ clean D line by MVA
+		mcr	p15, 0, r0, c7, c10, 4	@ DSB
+#endif
 #endif
 		/*
 		 * Note that some cache flushing and other stuff may
